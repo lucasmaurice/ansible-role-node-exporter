@@ -13,16 +13,16 @@
 - name: create prometheus system group
   group:
     name: "{{ NODE_EXPORTER_GROUP }}"
-    system: yes
+    system: true
     state: present
 
 - name: create prometheus system user
   user:
     name: "{{ NODE_EXPORTER_USER }}"
-    system: yes
+    system: true
     shell: "/sbin/nologin"
     group: "{{ NODE_EXPORTER_GROUP }}"
-    createhome: no
+    createhome: false
 
 - name: create prometheus directories
   file:
@@ -40,27 +40,23 @@
   unarchive:
     src: https://github.com/prometheus/node_exporter/releases/download/v{{ NODE_EXPORTER_VERSION }}/node_exporter-{{ NODE_EXPORTER_VERSION }}.linux-amd64.tar.gz
     dest: "{{ NODE_EXPORTER_DIST_DIR }}"
-    remote_src: yes
+    remote_src: true
 
 - name: Copy node exporter binary to sbin
   copy:
     src: "{{ NODE_EXPORTER_DIST_DIR }}/node_exporter-{{ NODE_EXPORTER_VERSION }}.linux-amd64/node_exporter"
     dest: "{{ NODE_EXPORTER_BIN_DIR }}/node_exporter"
-    remote_src: yes
+    remote_src: true
     owner: "{{ NODE_EXPORTER_USER }}"
     group: "{{ NODE_EXPORTER_GROUP }}"
     mode: 0755
+  notify: Restart service
 
 - name: Copy systemd service config
   template:
     src: etc/systemd/system/node_exporter.service.j2
-    dest:  /etc/systemd/system/node_exporter.service
+    dest: /etc/systemd/system/node_exporter.service
     owner: root
     group: root
     mode: 0644
-
-- name: Start and enable Node Exporter service
-  systemd:
-    name: node_exporter
-    enabled: yes
-    state: restarted
+  notify: Restart service

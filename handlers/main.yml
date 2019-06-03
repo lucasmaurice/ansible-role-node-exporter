@@ -1,2 +1,7 @@
 ---
-# handlers file for linux-motd
+- name: Start and enable Node Exporter service
+  systemd:
+    name: node_exporter
+    enabled: true
+    state: restarted
+  listen: Restart service

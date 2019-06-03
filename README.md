@@ -1,6 +1,4 @@
-
-## Ansible Role: prometheus-node-exporter [![Build Status](https://travis-ci.org/lucasmaurice/ansible-role-node-exporter.svg?branch=master)](https://travis-ci.org/lucasmaurice/ansible-role-node-exporter)
-
+# Ansible Role: prometheus-node-exporter [![Build Status](https://travis-ci.org/lucasmaurice/ansible-role-node-exporter.svg?branch=master)](https://travis-ci.org/lucasmaurice/ansible-role-node-exporter)
 
 An Ansible role that installs Prometheus Node Exporter on Ubuntu|Debian|Redhat-based machines.
 
@@ -52,8 +50,7 @@ NODE_EXPORTER_CONFIG_FLAGS:
 
 - `NODE_EXPORTER_CONFIG_FLAGS`: The welcome word.
 
-Example Playbook
-----------------
+## Example Playbook
 
 This is an example of how to use this role:
 
