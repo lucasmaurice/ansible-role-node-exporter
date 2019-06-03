@@ -4,9 +4,7 @@ NODE_EXPORTER_USER: prometheus
 NODE_EXPORTER_GROUP: prometheus
 
 # Node exporter base configurations
-NODE_EXPORTER_ROOT_DIR: /tmp/exporters
-NODE_EXPORTER_DIST_DIR: "{{ NODE_EXPORTER_ROOT_DIR }}/dist"
-NODE_EXPORTER_LOG_DIR: /var/log/prometheus
+NODE_EXPORTER_DIST_DIR: /tmp/exporters/dist
 NODE_EXPORTER_BIN_DIR: /usr/sbin
 
 # Node exporter version

@@ -32,9 +32,7 @@
     group: "{{ NODE_EXPORTER_GROUP }}"
     mode: 0755
   with_items:
-    - "{{ NODE_EXPORTER_ROOT_DIR }}"
     - "{{ NODE_EXPORTER_DIST_DIR }}"
-    - "{{ NODE_EXPORTER_LOG_DIR }}"
 
 # ==========
 
