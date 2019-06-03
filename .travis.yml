@@ -4,7 +4,7 @@ services: docker
 
 env:
   global:
-    - ROLE_NAME: linux-motd
+    - ROLE_NAME: node-exporter
   matrix:
     - MOLECULE_DISTRO: centos7
     - MOLECULE_DISTRO: centos6
