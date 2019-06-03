@@ -1,0 +1,15 @@
+[Unit]
+Description=Prometheus Node Exporter
+After=network.target
+
+[Service]
+Type=simple
+User={{ NODE_EXPORTER_USER }}
+Group={{ NODE_EXPORTER_GROUP }}
+ExecStart={{ NODE_EXPORTER_BIN_DIR }}/node_exporter {% for collector in NODE_EXPORTER_ENABLED_COLLECTORS %}--collector.{{ collector }} {% endfor %} {% for collector in NODE_EXPORTER_DISABLED_COLLECTORS %}--no-collector.{{ collector }} {% endfor %} {% for flag, flag_value in NODE_EXPORTER_CONFIG_FLAGS.items() %}--{{ flag }}={{ flag_value }} {% endfor %}
+
+SyslogIdentifier=node_exporter
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

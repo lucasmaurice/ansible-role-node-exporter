@@ -1,0 +1,23 @@
+---
+# Node exporter default user and group
+NODE_EXPORTER_USER: prometheus
+NODE_EXPORTER_GROUP: prometheus
+
+# Node exporter base configurations
+NODE_EXPORTER_ROOT_DIR: /tmp/exporters
+NODE_EXPORTER_DIST_DIR: "{{ NODE_EXPORTER_ROOT_DIR }}/dist"
+NODE_EXPORTER_LOG_DIR: /var/log/prometheus
+NODE_EXPORTER_BIN_DIR: /usr/sbin
+
+# Node exporter version
+NODE_EXPORTER_VERSION: 0.18.0
+
+# https://github.com/prometheus/node_exporter#enabled-by-default
+NODE_EXPORTER_ENABLED_COLLECTORS: []
+
+# https://github.com/prometheus/node_exporter#disabled-by-default
+NODE_EXPORTER_DISABLED_COLLECTORS: []
+
+NODE_EXPORTER_CONFIG_FLAGS:
+  'web.listen-address': '0.0.0.0:9100'
+  'log.level': 'info'

@@ -1,0 +1,68 @@
+---
+# ========== Prepare dependancies and installation ==========
+
+- name: install needed packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - curl
+    - tar
+    - bzip2
+
+- name: create prometheus system group
+  group:
+    name: "{{ NODE_EXPORTER_GROUP }}"
+    system: yes
+    state: present
+
+- name: create prometheus system user
+  user:
+    name: "{{ NODE_EXPORTER_USER }}"
+    system: yes
+    shell: "/sbin/nologin"
+    group: "{{ NODE_EXPORTER_GROUP }}"
+    createhome: no
+
+- name: create prometheus directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ NODE_EXPORTER_USER }}"
+    group: "{{ NODE_EXPORTER_GROUP }}"
+    mode: 0755
+  with_items:
+    - "{{ NODE_EXPORTER_ROOT_DIR }}"
+    - "{{ NODE_EXPORTER_DIST_DIR }}"
+    - "{{ NODE_EXPORTER_LOG_DIR }}"
+
+# ==========
+
+- name: Download Node Exporter binary
+  unarchive:
+    src: https://github.com/prometheus/node_exporter/releases/download/v{{ NODE_EXPORTER_VERSION }}/node_exporter-{{ NODE_EXPORTER_VERSION }}.linux-amd64.tar.gz
+    dest: "{{ NODE_EXPORTER_DIST_DIR }}"
+    remote_src: yes
+
+- name: Copy node exporter binary to sbin
+  copy:
+    src: "{{ NODE_EXPORTER_DIST_DIR }}/node_exporter-{{ NODE_EXPORTER_VERSION }}.linux-amd64/node_exporter"
+    dest: "{{ NODE_EXPORTER_BIN_DIR }}/node_exporter"
+    remote_src: yes
+    owner: "{{ NODE_EXPORTER_USER }}"
+    group: "{{ NODE_EXPORTER_GROUP }}"
+    mode: 0755
+
+- name: Copy systemd service config
+  template:
+    src: etc/systemd/system/node_exporter.service.j2
+    dest:  /etc/systemd/system/node_exporter.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Start and enable Node Exporter service
+  systemd:
+    name: node_exporter
+    enabled: yes
+    state: restarted
