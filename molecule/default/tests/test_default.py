@@ -36,7 +36,7 @@ def test_webserver_is_webserver(host):
 
 
 def test_webserver_is_node_exporter(host):
-    command = "curl http://localhost:9100/metric"
+    command = "curl http://localhost:9100/metrics"
     cmd = host.run(command)
     assert 'node_exporter_build_info' in cmd.stdout
     assert 'version="0.18.0"' in cmd.stdout
