@@ -7,6 +7,11 @@
     - name: Update apt cache.
       apt: update_cache=yes
       when: ansible_os_family == 'Debian'
+    - name: Update apt cache.
+      package:
+        name: net-tools
+        state: present
+      when: ansible_os_family == 'Debian'
 
   roles:
     - role: node-exporter
