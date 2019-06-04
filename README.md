@@ -56,34 +56,34 @@ This is an example of how to use this role:
 
 ```yaml
 - hosts: servers
-	roles:
-		- role: undergreen.prometheus-node-exporter
-			prometheus_node_exporter_version: 0.17.0
-			prometheus_node_exporter_enabled_collectors:
-				- conntrack
-				- cpu
-				- diskstats
-				- entropy
-				- filefd
-				- filesystem
-				- loadavg
-				- mdadm
-				- meminfo
-				- netdev
-				- netstat
-				- stat
-				- textfile
-				- time
-				- vmstat
-			prometheus_node_exporter_config_flags:
-				'web.listen-address': '0.0.0.0:9100'
-				'log.level': 'info'
+    roles:
+        - role: undergreen.prometheus-node-exporter
+            prometheus_node_exporter_version: 0.17.0
+            prometheus_node_exporter_enabled_collectors:
+                - conntrack
+                - cpu
+                - diskstats
+                - entropy
+                - filefd
+                - filesystem
+                - loadavg
+                - mdadm
+                - meminfo
+                - netdev
+                - netstat
+                - stat
+                - textfile
+                - time
+                - vmstat
+            prometheus_node_exporter_config_flags:
+                'web.listen-address': '0.0.0.0:9100'
+                'log.level': 'info'
 ```
 
-## Note:
+## Note
 
 Due to [prometheus/node_exporter#640](https://github.com/prometheus/node_exporter/pull/640) and [prometheus/node_exporter#639](https://github.com/prometheus/node_exporter/pull/639) changes, this role can only support the minimum version 0.15 of node_exporter.
 
 ## License
 
-WTFPL
+[![WTFPL](http://www.wtfpl.net/wp-content/uploads/2012/12/wtfpl-badge-1.png)](https://http://www.wtfpl.net)

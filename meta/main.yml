@@ -1,8 +1,8 @@
 ---
 galaxy_info:
   author: sonic
-  description: This role is suposed to install the default and standardized linux MOTD on our systems.
-  company: dhmtl
+  description: An Ansible role that installs Prometheus Node Exporter on Ubuntu|Debian|Redhat-based machines.
+  company: djls
 
   license: MIT
 
