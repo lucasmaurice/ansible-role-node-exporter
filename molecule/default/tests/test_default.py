@@ -24,13 +24,16 @@ def test_service_running(host):
     service = host.service('node_exporter')
     assert service.is_running
 
+
 def test_webserver_open(host):
     assert host.socket("tcp://0.0.0.0:9100").is_listening
+
 
 def test_webserver_is_webserver(host):
     command = "curl --digest -L -D - http://localhost:9100/"
     cmd = host.run(command)
     assert 'HTTP/1.1 200 OK' in cmd.stdout
+
 
 def test_webserver_is_node_exporter(host):
     command = "curl http://localhost:9100/metric"
