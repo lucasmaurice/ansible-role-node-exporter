@@ -1,6 +1,6 @@
 ---
 - name: Start and enable Node Exporter service
-  systemd:
+  service:
     name: node_exporter
     enabled: true
     state: restarted

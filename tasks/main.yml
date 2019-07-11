@@ -9,6 +9,7 @@
     - curl
     - tar
     - bzip2
+    - ufw
 
 - name: create prometheus system group
   group:
@@ -34,8 +35,6 @@
   with_items:
     - "{{ NODE_EXPORTER_DIST_DIR }}"
 
-# ==========
-
 - name: Download Node Exporter binary
   unarchive:
     src: https://github.com/prometheus/node_exporter/releases/download/v{{ NODE_EXPORTER_VERSION }}/node_exporter-{{ NODE_EXPORTER_VERSION }}.linux-amd64.tar.gz
@@ -60,3 +59,11 @@
     group: root
     mode: 0644
   notify: Restart service
+
+- name: Allow node exporter access
+  ufw:
+    rule: allow
+    port: 9100
+    proto: tcp
+    comment: Allow access to Node Exporter
+  when: ansible_os_family == "Debian"
