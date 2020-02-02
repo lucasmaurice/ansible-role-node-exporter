@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: node-exporter
   author: sonic
   description: An Ansible role that installs Prometheus Node Exporter on Ubuntu|Debian|Redhat-based machines.
   company: djls
